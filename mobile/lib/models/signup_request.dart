@@ -1,5 +1,3 @@
-// lib/models/signup_request.dart
-
 class SignupRequest {
   final String name;
   final String email;
@@ -13,8 +11,7 @@ class SignupRequest {
     this.phone,
   });
 
-  /// Safely converts the registration data into a JSON map.
-  /// Omits the 'phone' key entirely if the user did not provide one.
+  /// converts the registration data into a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'name': name,
