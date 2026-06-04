@@ -1,5 +1,3 @@
-// lib/models/company.dart
-
 class Company {
   final String id;
   final String name;
@@ -26,7 +24,6 @@ class Company {
   });
 
   /// Factory constructor to safely unpack JSON maps from the server.
-  /// Uses rigorous type protection to avoid runtime null-casting issues.
   factory Company.fromJson(Map<String, dynamic> json) {
     return Company(
       id: (json['id'] ?? '').toString(),
@@ -59,7 +56,6 @@ class Company {
   }
 
   /// Helper method to safely update individual corporate properties 
-  /// without re-instantiating every property.
   Company copyWith({
     String? id,
     String? name,
