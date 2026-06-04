@@ -28,10 +28,12 @@ class AuthPresenter {
   Future<void> login(String email, String password) async {
     _view.showLoading();
     try {
-      final request = LoginRequest(email: email, password: password);
-      final response = await _apiService.login(request);
+      final request = {
+        'email': email,
+        'password': password,
+      };
       
-      _view.hideLoading();
+      final response = await _apiService.login(request);
       
       if (response.success && response.data != null) {
         await _saveUser(response.data!);
