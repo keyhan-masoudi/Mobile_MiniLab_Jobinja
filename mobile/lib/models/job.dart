@@ -58,6 +58,7 @@ class Job {
   final Company company;
   final List<String> skills;
   final List<String> benefits;
+  final String? description;
 
   Job({
     required this.id,
@@ -71,6 +72,7 @@ class Job {
     required this.company,
     required this.skills,
     required this.benefits,
+    this.description,
   });
 
   factory Job.fromJson(Map<String, dynamic> json) {
@@ -121,6 +123,7 @@ class Job {
       company: companyObject,
       skills: (json['skills'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
       benefits: (json['benefits'] as List<dynamic>?)?.map((e) => e.toString()).toList() ?? [],
+      description: json['description'] as String? ?? '',
     );
   }
 
@@ -137,6 +140,7 @@ class Job {
       'company': company.toJson(),
       'skills': skills,
       'benefits': benefits,
+      'description': description,
     };
   }
 
@@ -152,6 +156,7 @@ class Job {
     Company? company,
     List<String>? skills,
     List<String>? benefits,
+    String? description,
   }) {
     return Job(
       id: id ?? this.id,
@@ -165,6 +170,7 @@ class Job {
       company: company ?? this.company,
       skills: skills ?? this.skills,
       benefits: benefits ?? this.benefits,
+      description: description ?? this.description,
     );
   }
 }
