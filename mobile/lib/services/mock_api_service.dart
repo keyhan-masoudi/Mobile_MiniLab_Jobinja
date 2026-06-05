@@ -29,16 +29,16 @@ class MockJobPagination {
 }
 
 class MockApiService {
-  // --- MOCK DATABASE ---
 
+  static User? _currentUser;
   // 1. Mock Users
   static final List<Map<String, dynamic>> _mockUsers = [
-    {'id': 1, 'name': 'Keyhan', 'email': 'keyhan@example.com', 'password': 'password123', 'phone': '+98 912 111 1111'},
-    {'id': 2, 'name': 'Yousef', 'email': 'yousef@example.com', 'password': 'password123', 'phone': '+98 912 222 2222'},
-    {'id': 3, 'name': 'Amirali', 'email': 'amirali@example.com', 'password': 'password123', 'phone': '+98 912 333 3333'},
+    {'id': 1, 'name': 'Keyhan', 'email': 'keyhan@example.com', 'password': '1234', 'phone': '+98 912 111 1111'},
+    {'id': 2, 'name': 'Yousef', 'email': 'yousef@example.com', 'password': '1234', 'phone': '+98 912 222 2222'},
+    {'id': 3, 'name': 'Amirali', 'email': 'amirali@example.com', 'password': '1234', 'phone': '+98 912 333 3333'},
   ];
 
-// 2. Mock Companies (Increased to 6 corporate profiles)
+// 2. Mock Companies
   static final List<Map<String, dynamic>> _mockCompanies = [
     {
       'id': 'snapp',
@@ -102,153 +102,94 @@ class MockApiService {
     }
   ];
 
-  // 3. Mock Jobs (Increased to 10 highly detailed positions)
+
+  // 3. Mock Jobs
   static final List<Map<String, dynamic>> _mockJobs = [
     {
-      'id': 'job_1',
-      'title': 'Senior Flutter Developer',
-      'company': {'id': 'snapp', 'name': 'Snapp'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '60M - 80M Tomans / month'},
-      'published_at': '2 hours ago',
-      'description': 'We are looking for an experienced Flutter developer to join our Super App mobile core team. You will be responsible for architecting high-performance modules and micro-frontends handled by millions of concurrent users.',
-      'level_experience': 'Senior (3+ years)',
-      'is_remote': true,
-      'skills': ['Flutter', 'Dart', 'BLoC State Management', 'Clean Architecture', 'Git', 'CI/CD Pipelines'],
-      'benefits': ['Flexible working hours', 'Supplementary health insurance', 'Free daily lunch', 'Gym corporate discount', 'Snapp travel credits'],
+      'id': 'job_1', 'categoryId': 'tech', 'timestamp': 100, 
+      'title': 'Senior Flutter Developer', 'company': {'id': 'snapp', 'name': 'Snapp'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 80M Tomans / month'},
+      'published_at': '2 hours ago', 'description': 'We are looking for an experienced Flutter developer...',
+      'level_experience': 'Senior (3+ years)', 'is_remote': true, 'skills': ['Flutter', 'Dart', 'BLoC'],
+      'benefits': ['Flexible working hours', 'Insurance'],
     },
     {
-      'id': 'job_2',
-      'title': 'Backend Software Engineer (Python)',
-      'company': {'id': 'digikala', 'name': 'Digikala'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': 'Negotiable'},
-      'published_at': '5 hours ago',
-      'description': 'Join the core inventory and supply chain logistics team at Digikala. You will design, implement, and maintain low-latency distributed microservices to manage high-volume order updates and routing logic.',
-      'level_experience': 'Mid-Level / Senior',
-      'is_remote': false,
-      'skills': ['Python', 'Django', 'FastAPI', 'PostgreSQL', 'Docker', 'Redis Caching', 'Microservices'],
-      'benefits': ['Performance bonuses', 'Stock options', 'Professional training budget', 'On-site relaxation/games room', 'DigiPlus membership perks'],
+      'id': 'job_2', 'categoryId': 'tech', 'timestamp': 95, 
+      'title': 'Backend Software Engineer (Python)', 'company': {'id': 'digikala', 'name': 'Digikala'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable'},
+      'published_at': '5 hours ago', 'description': 'Join the core logistics team at Digikala...',
+      'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Python', 'Django', 'Docker'],
+      'benefits': ['Performance bonuses', 'Stock options'],
     },
     {
-      'id': 'job_3',
-      'title': 'UI/UX Product Designer',
-      'company': {'id': 'tapsell', 'name': 'Tapsell'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Part-time',
-      'salary': {'display': '25M - 35M Tomans'},
-      'published_at': '1 day ago',
-      'description': 'We need a creative Product Designer to rethink our real-time marketing analytics dashboard. You will conduct user research, construct wireframes, and map complex data visualizations into highly intuitive layouts.',
-      'level_experience': 'Junior / Mid-Level',
-      'is_remote': true,
-      'skills': ['Figma', 'Adobe XD', 'Interactive Prototyping', 'User Research', 'Design Systems management'],
-      'benefits': ['Fully remote framework', 'Flexible time management', 'Friendly team environment', 'Educational books allowance'],
+      'id': 'job_3', 'categoryId': 'design', 'timestamp': 90, 
+      'title': 'UI/UX Product Designer', 'company': {'id': 'tapsell', 'name': 'Tapsell'},
+      'location': {'city': 'Shiraz'}, 'contract_type': 'Part-time', 'salary': {'display': '25M - 35M Tomans'},
+      'published_at': '1 day ago', 'description': 'We need a creative Product Designer...',
+      'level_experience': 'Junior / Mid-Level', 'is_remote': true, 'skills': ['Figma', 'Adobe XD'],
+      'benefits': ['Fully remote framework', 'Flexible time'],
     },
     {
-      'id': 'job_4',
-      'title': 'Android Engineer (Kotlin)',
-      'company': {'id': 'cafebazaar', 'name': 'Cafe Bazaar'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '50M - 70M Tomans / month'},
-      'published_at': '2 days ago',
-      'description': 'Maintain and implement new features for the native Cafe Bazaar Android client. You will solve platform compatibility challenges, optimize local storage mechanisms, and build flawless reactive application flows.',
-      'level_experience': 'Mid-Level (2+ years)',
-      'is_remote': false,
-      'skills': ['Kotlin', 'Android SDK', 'Jetpack Compose', 'MVVM/MVI Patterns', 'Coroutines & Flow', 'Dagger Hilt Dependency Injection'],
-      'benefits': ['Comprehensive medical insurance', 'Free internal catering (Breakfast & Lunch)', 'Modern workspace layout', 'Tech equipment provision'],
+      'id': 'job_4', 'categoryId': 'tech', 'timestamp': 85, 
+      'title': 'Android Engineer (Kotlin)', 'company': {'id': 'cafebazaar', 'name': 'Cafe Bazaar'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 70M Tomans / month'},
+      'published_at': '2 days ago', 'description': 'Maintain and implement new features...',
+      'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Kotlin', 'Android SDK'],
+      'benefits': ['Comprehensive medical insurance', 'Free internal catering'],
     },
     {
-      'id': 'job_5',
-      'title': 'Data Scientist / Machine Learning Engineer',
-      'company': {'id': 'divar', 'name': 'Divar'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '70M - 100M Tomans / month'},
-      'published_at': '3 days ago',
-      'description': 'Help us build a smarter search and anti-fraud classifieds system. You will build computer vision and NLP models to detect fraudulent item submissions, auto-categorize uploads, and optimize recommendations.',
-      'level_experience': 'Senior (4+ years)',
-      'is_remote': true,
-      'skills': ['Python', 'Machine Learning', 'TensorFlow / PyTorch', 'SQL Data Extraction', 'BigQuery', 'Natural Language Processing'],
-      'benefits': ['Remote-first engineering culture', 'Premium supplementary coverage', 'Annual developer conferences access', 'High-end hardware budget'],
+      'id': 'job_5', 'categoryId': 'data', 'timestamp': 80, 
+      'title': 'Data Scientist / ML Engineer', 'company': {'id': 'divar', 'name': 'Divar'},
+      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '70M - 100M Tomans / month'},
+      'published_at': '3 days ago', 'description': 'Help us build a smarter search...',
+      'level_experience': 'Senior', 'is_remote': true, 'skills': ['Python', 'Machine Learning', 'TensorFlow'],
+      'benefits': ['Remote-first engineering culture', 'Hardware budget'],
     },
     {
-      'id': 'job_6',
-      'title': 'Telecom Core Network Security Engineer',
-      'company': {'id': 'irancell', 'name': 'MTN Irancell'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': 'Negotiable'},
-      'published_at': '1 week ago',
-      'description': 'Ensure the absolute perimeter protection and load integrity of our nation-wide infrastructure. You will manage enterprise firewalls, conduct active network vulnerability scans, and resolve security incident alerts.',
-      'level_experience': 'Mid-Level / Senior',
-      'is_remote': false,
-      'skills': ['Cisco Networks', 'Network Security Architecture', 'Next-Gen Firewalls', 'CCNP / CCIE certification', 'Linux Administration', 'SIEM Systems'],
-      'benefits': ['Corporate transportation support', 'Family insurance tier', 'Project completion bonuses', 'Complimentary internal internet package'],
+      'id': 'job_6', 'categoryId': 'tech', 'timestamp': 75, 
+      'title': 'Telecom Security Engineer', 'company': {'id': 'irancell', 'name': 'MTN Irancell'},
+      'location': {'city': 'Isfahan'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable'},
+      'published_at': '1 week ago', 'description': 'Ensure the absolute perimeter protection...',
+      'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Cisco Networks', 'Network Security'],
+      'benefits': ['Corporate transportation', 'Family insurance'],
     },
     {
-      'id': 'job_7',
-      'title': 'Technical Product Manager',
-      'company': {'id': 'snapp', 'name': 'Snapp'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '55M - 80M Tomans / month'},
-      'published_at': '1 week ago',
-      'description': 'Own the strategic lifecycle of the Snapp Food dispatching system. You will gather cross-functional requirements, manage backlogs, translate complex business parameters into explicit user stories, and drive Agile sprints.',
-      'level_experience': 'Senior Specialist',
-      'is_remote': false,
-      'skills': ['Agile / Scrum Methodologies', 'Product Analytics (Mixpanel/GA)', 'Jira Management', 'Technical Architecture mapping', 'A/B Testing execution'],
-      'benefits': ['Snapp ecosystem credits', 'Executive healthcare tiers', 'Catered on-site meals', 'Quarterly performance payouts'],
+      'id': 'job_7', 'categoryId': 'product', 'timestamp': 70, 
+      'title': 'Technical Product Manager', 'company': {'id': 'snapp', 'name': 'Snapp'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '55M - 80M Tomans / month'},
+      'published_at': '1 week ago', 'description': 'Own the strategic lifecycle...',
+      'level_experience': 'Senior Specialist', 'is_remote': false, 'skills': ['Agile / Scrum', 'Product Analytics'],
+      'benefits': ['Snapp ecosystem credits', 'Quarterly performance payouts'],
     },
     {
-      'id': 'job_8',
-      'title': 'Senior DevOps / Cloud Platform Engineer',
-      'company': {'id': 'digikala', 'name': 'Digikala'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '60M - 95M Tomans / month'},
-      'published_at': '2 weeks ago',
-      'description': 'We are looking for an expert to manage our large-scale on-premise Kubernetes clusters and cloud migrations. You will maximize server uptime, build resilient CI/CD flows, and enforce Infrastructure as Code patterns.',
-      'level_experience': 'Senior Specialist',
-      'is_remote': true,
-      'skills': ['Kubernetes clustering', 'Docker Containers', 'Linux Systems Architecture', 'Jenkins / GitLab CI', 'Prometheus & Grafana Tracking', 'Ansible / Terraform'],
-      'benefits': ['Flexible scheduling matrix', 'Partial work-from-home framework', 'Corporate equity options', 'Premium family health program'],
+      'id': 'job_8', 'categoryId': 'tech', 'timestamp': 65, 
+      'title': 'Senior DevOps Engineer', 'company': {'id': 'digikala', 'name': 'Digikala'},
+      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 95M Tomans / month'},
+      'published_at': '2 weeks ago', 'description': 'Manage our large-scale on-premise Kubernetes...',
+      'level_experience': 'Senior Specialist', 'is_remote': true, 'skills': ['Kubernetes', 'Docker', 'Linux'],
+      'benefits': ['Flexible scheduling matrix', 'Corporate equity options'],
     },
     {
-      'id': 'job_9',
-      'title': 'iOS Application Engineer (Swift)',
-      'company': {'id': 'divar', 'name': 'Divar'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '50M - 75M Tomans / month'},
-      'published_at': '2 weeks ago',
-      'description': 'Join the Divar iOS squad to construct ultra-smooth native views. You will navigate around platform constraints to deploy scalable architectures, optimizing image caching, search filtering responsiveness, and storage protocols.',
-      'level_experience': 'Mid-Level',
-      'is_remote': true,
-      'skills': ['Swift Programming', 'iOS Core Frameworks', 'SwiftUI & Combine', 'UIKit legacy support', 'Local Data Caching architecture', 'XCode Performance analysis'],
-      'benefits': ['Work from anywhere capability', 'Apple hardware refresh cycle allowance', 'Full medical and dentistry options'],
+      'id': 'job_9', 'categoryId': 'tech', 'timestamp': 60, 
+      'title': 'iOS Application Engineer', 'company': {'id': 'divar', 'name': 'Divar'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 75M Tomans / month'},
+      'published_at': '2 weeks ago', 'description': 'Join the Divar iOS squad...',
+      'level_experience': 'Mid-Level', 'is_remote': true, 'skills': ['Swift Programming', 'iOS Core Frameworks'],
+      'benefits': ['Work from anywhere capability', 'Apple hardware refresh'],
     },
     {
-      'id': 'job_10',
-      'title': 'Junior QA Automation / Tester',
-      'company': {'id': 'tapsell', 'name': 'Tapsell'},
-      'location': {'city': 'Tehran'},
-      'contract_type': 'Full-time',
-      'salary': {'display': '18M - 25M Tomans'},
-      'published_at': '3 weeks ago',
-      'description': 'Kickstart your engineering career in Quality Assurance. You will write automated integration and UI scripts using Appium or Selenium, discover application defects, write diagnostic bug tracking reports, and audit application releases.',
-      'level_experience': 'Junior / Graduate',
-      'is_remote': false,
-      'skills': ['Manual Testing basics', 'Automated scripting foundations', 'Selenium / Appium toolsets', 'Bug tracking pipelines (Jira)', 'Basic Python or JS syntax'],
-      'benefits': ['Dedicated mentorship path', 'Clear promotional career tracks', 'Young and collaborative team space'],
+      'id': 'job_10', 'categoryId': 'tech', 'timestamp': 55, 
+      'title': 'Junior QA Automation', 'company': {'id': 'tapsell', 'name': 'Tapsell'},
+      'location': {'city': 'Shiraz'}, 'contract_type': 'Full-time', 'salary': {'display': '18M - 25M Tomans'},
+      'published_at': '3 weeks ago', 'description': 'Kickstart your engineering career in QA...',
+      'level_experience': 'Junior / Graduate', 'is_remote': false, 'skills': ['Manual Testing basics', 'Selenium'],
+      'benefits': ['Dedicated mentorship path', 'Clear promotional career tracks'],
     }
   ];
 
   // --- API METHODS ---
 
-  Future<MockApiResponse> login(dynamic request) async {
+Future<MockApiResponse> login(dynamic request) async {
     await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
 
     try {
@@ -259,14 +200,20 @@ class MockApiService {
         (u) => u['email'] == email && u['password'] == password,
       );
 
+      // Create the user object
+      final loggedInUser = User(
+        id: userJson['id'], 
+        name: userJson['name'],
+        email: userJson['email'],
+        phone: userJson['phone'],
+      );
+
+      // SAVE the user locally in the service memory!
+      _currentUser = loggedInUser;
+
       return MockApiResponse(
         success: true,
-        data: User(
-          id: userJson['id'], 
-          name: userJson['name'],
-          email: userJson['email'],
-          phone: userJson['phone'],
-        ),
+        data: loggedInUser,
         message: 'Login successful',
       );
     } catch (e) {
@@ -286,41 +233,70 @@ class MockApiService {
     );
   }
 
-  Future<MockApiResponse> logout() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    return MockApiResponse(success: true);
-  }
-
-  Future<MockApiResponse> getJobCategories() async {
+Future<MockApiResponse> getJobCategories() async {
     return MockApiResponse(
       success: true,
-      data: [{'id': '1', 'name': 'Software Engineering'}, {'id': '2', 'name': 'Design'}],
+      data: [
+        {'id': 'tech', 'name': 'Software & Engineering'},
+        {'id': 'design', 'name': 'Design & UI/UX'},
+        {'id': 'data', 'name': 'Data Science & AI'},
+        {'id': 'product', 'name': 'Product Management'},
+      ],
     );
   }
 
   Future<MockApiResponse> getLocations() async {
     return MockApiResponse(
       success: true,
-      data: ['Tehran', 'Mashhad', 'Isfahan', 'Shiraz', 'Remote'],
+      data: ['All', 'Tehran', 'Mashhad', 'Isfahan', 'Shiraz', 'Remote'],
     );
   }
 
-  // UPDATED getJobs: Now wraps the List<Job> inside MockJobPagination!
-  Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location, String? sortBy, String? category}) async {
-    await Future.delayed(const Duration(milliseconds: 800));
-    
-    // Convert to Job models
-    List<Job> filteredJobs = _mockJobs.map((json) => Job.fromJson(json)).toList();
+  // getJobs: Now wraps the List<Job> inside MockJobPagination!
+Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location, String? sortBy, String? category}) async {
+    await Future.delayed(const Duration(milliseconds: 800)); // Simulate network latency
 
-    // Mock search logic
-    if (keyword != null && keyword.isNotEmpty) {
-      filteredJobs = filteredJobs.where((j) => 
-        j.title.toLowerCase().contains(keyword.toLowerCase()) || 
-        j.company.name.toLowerCase().contains(keyword.toLowerCase())
+    // Start with all raw data so we can access hidden fields like categoryId and timestamp
+    List<Map<String, dynamic>> filteredRawJobs = List.from(_mockJobs);
+
+    // 1. Keyword Filter (Search by Title or Company Name)
+    if (keyword != null && keyword.trim().isNotEmpty) {
+      filteredRawJobs = filteredRawJobs.where((j) => 
+        j['title'].toString().toLowerCase().contains(keyword.toLowerCase()) || 
+        j['company']['name'].toString().toLowerCase().contains(keyword.toLowerCase())
       ).toList();
     }
 
-    // If page is greater than 1, return an empty pagination object
+    // 2. Location & Remote Filter
+    if (location != null && location.isNotEmpty && location != 'All') {
+      if (location.toLowerCase() == 'remote') {
+        filteredRawJobs = filteredRawJobs.where((j) => j['is_remote'] == true).toList();
+      } else {
+        filteredRawJobs = filteredRawJobs.where((j) => 
+          j['location']['city'].toString().toLowerCase() == location.toLowerCase()
+        ).toList();
+      }
+    }
+
+    // 3. Category Filter (Using the hidden categoryId)
+    if (category != null && category.isNotEmpty && category != 'All') {
+      // Assuming 'category' passed from UI is the ID (e.g., 'tech', 'design')
+      filteredRawJobs = filteredRawJobs.where((j) => j['categoryId'] == category).toList();
+    }
+
+    // 4. Sorting Filter (Using the hidden timestamp)
+    if (sortBy != null && sortBy.isNotEmpty) {
+      if (sortBy == 'newest') {
+        filteredRawJobs.sort((a, b) => b['timestamp'].compareTo(a['timestamp'])); // Descending
+      } else if (sortBy == 'oldest') {
+        filteredRawJobs.sort((a, b) => a['timestamp'].compareTo(b['timestamp'])); // Ascending
+      }
+    }
+
+    // Finally, convert the filtered raw maps into Job models
+    List<Job> finalJobs = filteredRawJobs.map((json) => Job.fromJson(json)).toList();
+
+    // Handle Pagination (Empty list if page > 1 since we only have 10 items)
     if (page > 1) {
       return MockApiResponse(
         success: true, 
@@ -328,10 +304,9 @@ class MockApiService {
       );
     }
 
-    // Return the correctly wrapped paginated data
     return MockApiResponse(
       success: true, 
-      data: MockJobPagination(data: filteredJobs, currentPage: page, lastPage: 1)
+      data: MockJobPagination(data: finalJobs, currentPage: page, lastPage: 1)
     );
   }
 
@@ -358,12 +333,22 @@ class MockApiService {
     return MockApiResponse(success: true, data: companyJobs.map((json) => Job.fromJson(json)).toList());
   }
 
-  Future<MockApiResponse> getUserProfile() async {
+Future<MockApiResponse> getUserProfile() async {
     await Future.delayed(const Duration(milliseconds: 500));
+    
+    // If no one is logged in, default to Keyhan so your app doesn't crash on start
+    final activeUser = _currentUser ?? User(id: 1, name: 'Keyhan', email: 'keyhan@example.com', phone: '+98 912 111 1111');
+
     return MockApiResponse(
       success: true, 
-      data: User(id: 1, name: 'Keyhan', email: 'keyhan@example.com', phone: '+98 912 111 1111')
+      data: activeUser,
     );
+  }
+
+  Future<MockApiResponse> logout() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    _currentUser = null; // Clear the session on logout
+    return MockApiResponse(success: true);
   }
 
   Future<MockApiResponse> getAppliedJobs() async {
