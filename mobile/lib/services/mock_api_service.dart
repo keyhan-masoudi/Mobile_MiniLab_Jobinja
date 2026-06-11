@@ -33,9 +33,9 @@ class MockApiService {
   static User? _currentUser;
   // 1. Mock Users
   static final List<Map<String, dynamic>> _mockUsers = [
-    {'id': 1, 'name': 'Keyhan', 'email': 'keyhan@example.com', 'password': '1234', 'phone': '+98 912 111 1111'},
-    {'id': 2, 'name': 'Yousef', 'email': 'yousef@example.com', 'password': '1234', 'phone': '+98 912 222 2222'},
-    {'id': 3, 'name': 'Amirali', 'email': 'amirali@example.com', 'password': '1234', 'phone': '+98 912 333 3333'},
+    {'id': 1, 'name': 'Keyhan', 'email': 'keyhan@gmail.com', 'password': '123456', 'phone': '+98 912 111 1111'},
+    {'id': 2, 'name': 'Yousef', 'email': 'usef@gmail.com', 'password': '123456', 'phone': '+98 912 222 2222'},
+    {'id': 3, 'name': 'Amirali', 'email': 'amirali@gmail.com', 'password': '123456', 'phone': '+98 912 333 3333'},
   ];
 
 // 2. Mock Companies
