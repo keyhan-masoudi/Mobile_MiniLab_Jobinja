@@ -31,6 +31,7 @@ class MockJobPagination {
 class MockApiService {
 
   static User? _currentUser;
+  static final List<String> _appliedJobIds = [];
   // 1. Mock Users
   static final List<Map<String, dynamic>> _mockUsers = [
     {'id': 1, 'name': 'Keyhan', 'email': 'keyhan@gmail.com', 'password': '123456', 'phone': '+98 912 111 1111'},
@@ -108,7 +109,7 @@ class MockApiService {
     {
       'id': 'job_1', 'categoryId': 'tech', 'timestamp': 100, 
       'title': 'Senior Flutter Developer', 'company': {'id': 'snapp', 'name': 'Snapp'},
-      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 80M Tomans / month'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 80M Tomans / month', 'salary_amount': 80},
       'published_at': '2 hours ago', 'description': 'We are looking for an experienced Flutter developer...',
       'level_experience': 'Senior (3+ years)', 'is_remote': true, 'skills': ['Flutter', 'Dart', 'BLoC'],
       'benefits': ['Flexible working hours', 'Insurance'],
@@ -116,7 +117,7 @@ class MockApiService {
     {
       'id': 'job_2', 'categoryId': 'tech', 'timestamp': 95, 
       'title': 'Backend Software Engineer (Python)', 'company': {'id': 'digikala', 'name': 'Digikala'},
-      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable', 'salary_amount': 0},
       'published_at': '5 hours ago', 'description': 'Join the core logistics team at Digikala...',
       'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Python', 'Django', 'Docker'],
       'benefits': ['Performance bonuses', 'Stock options'],
@@ -124,7 +125,7 @@ class MockApiService {
     {
       'id': 'job_3', 'categoryId': 'design', 'timestamp': 90, 
       'title': 'UI/UX Product Designer', 'company': {'id': 'tapsell', 'name': 'Tapsell'},
-      'location': {'city': 'Shiraz'}, 'contract_type': 'Part-time', 'salary': {'display': '25M - 35M Tomans'},
+      'location': {'city': 'Shiraz'}, 'contract_type': 'Part-time', 'salary': {'display': '25M - 35M Tomans', 'salary_amount': 35},
       'published_at': '1 day ago', 'description': 'We need a creative Product Designer...',
       'level_experience': 'Junior / Mid-Level', 'is_remote': true, 'skills': ['Figma', 'Adobe XD'],
       'benefits': ['Fully remote framework', 'Flexible time'],
@@ -132,7 +133,7 @@ class MockApiService {
     {
       'id': 'job_4', 'categoryId': 'tech', 'timestamp': 85, 
       'title': 'Android Engineer (Kotlin)', 'company': {'id': 'cafebazaar', 'name': 'Cafe Bazaar'},
-      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 70M Tomans / month'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 70M Tomans / month', 'salary_amount': 70},
       'published_at': '2 days ago', 'description': 'Maintain and implement new features...',
       'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Kotlin', 'Android SDK'],
       'benefits': ['Comprehensive medical insurance', 'Free internal catering'],
@@ -140,7 +141,7 @@ class MockApiService {
     {
       'id': 'job_5', 'categoryId': 'data', 'timestamp': 80, 
       'title': 'Data Scientist / ML Engineer', 'company': {'id': 'divar', 'name': 'Divar'},
-      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '70M - 100M Tomans / month'},
+      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '70M - 100M Tomans / month', 'salary_amount': 100},
       'published_at': '3 days ago', 'description': 'Help us build a smarter search...',
       'level_experience': 'Senior', 'is_remote': true, 'skills': ['Python', 'Machine Learning', 'TensorFlow'],
       'benefits': ['Remote-first engineering culture', 'Hardware budget'],
@@ -148,7 +149,7 @@ class MockApiService {
     {
       'id': 'job_6', 'categoryId': 'tech', 'timestamp': 75, 
       'title': 'Telecom Security Engineer', 'company': {'id': 'irancell', 'name': 'MTN Irancell'},
-      'location': {'city': 'Isfahan'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable'},
+      'location': {'city': 'Isfahan'}, 'contract_type': 'Full-time', 'salary': {'display': 'Negotiable', 'salary_amount': 0},
       'published_at': '1 week ago', 'description': 'Ensure the absolute perimeter protection...',
       'level_experience': 'Mid-Level', 'is_remote': false, 'skills': ['Cisco Networks', 'Network Security'],
       'benefits': ['Corporate transportation', 'Family insurance'],
@@ -156,7 +157,7 @@ class MockApiService {
     {
       'id': 'job_7', 'categoryId': 'product', 'timestamp': 70, 
       'title': 'Technical Product Manager', 'company': {'id': 'snapp', 'name': 'Snapp'},
-      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '55M - 80M Tomans / month'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '55M - 80M Tomans / month', 'salary_amount': 80},
       'published_at': '1 week ago', 'description': 'Own the strategic lifecycle...',
       'level_experience': 'Senior Specialist', 'is_remote': false, 'skills': ['Agile / Scrum', 'Product Analytics'],
       'benefits': ['Snapp ecosystem credits', 'Quarterly performance payouts'],
@@ -164,7 +165,7 @@ class MockApiService {
     {
       'id': 'job_8', 'categoryId': 'tech', 'timestamp': 65, 
       'title': 'Senior DevOps Engineer', 'company': {'id': 'digikala', 'name': 'Digikala'},
-      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 95M Tomans / month'},
+      'location': {'city': 'Mashhad'}, 'contract_type': 'Full-time', 'salary': {'display': '60M - 95M Tomans / month', 'salary_amount': 95},
       'published_at': '2 weeks ago', 'description': 'Manage our large-scale on-premise Kubernetes...',
       'level_experience': 'Senior Specialist', 'is_remote': true, 'skills': ['Kubernetes', 'Docker', 'Linux'],
       'benefits': ['Flexible scheduling matrix', 'Corporate equity options'],
@@ -172,7 +173,7 @@ class MockApiService {
     {
       'id': 'job_9', 'categoryId': 'tech', 'timestamp': 60, 
       'title': 'iOS Application Engineer', 'company': {'id': 'divar', 'name': 'Divar'},
-      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 75M Tomans / month'},
+      'location': {'city': 'Tehran'}, 'contract_type': 'Full-time', 'salary': {'display': '50M - 75M Tomans / month', 'salary_amount': 75},
       'published_at': '2 weeks ago', 'description': 'Join the Divar iOS squad...',
       'level_experience': 'Mid-Level', 'is_remote': true, 'skills': ['Swift Programming', 'iOS Core Frameworks'],
       'benefits': ['Work from anywhere capability', 'Apple hardware refresh'],
@@ -180,7 +181,7 @@ class MockApiService {
     {
       'id': 'job_10', 'categoryId': 'tech', 'timestamp': 55, 
       'title': 'Junior QA Automation', 'company': {'id': 'tapsell', 'name': 'Tapsell'},
-      'location': {'city': 'Shiraz'}, 'contract_type': 'Full-time', 'salary': {'display': '18M - 25M Tomans'},
+      'location': {'city': 'Shiraz'}, 'contract_type': 'Full-time', 'salary': {'display': '18M - 25M Tomans', 'salary_amount': 25},
       'published_at': '3 weeks ago', 'description': 'Kickstart your engineering career in QA...',
       'level_experience': 'Junior / Graduate', 'is_remote': false, 'skills': ['Manual Testing basics', 'Selenium'],
       'benefits': ['Dedicated mentorship path', 'Clear promotional career tracks'],
@@ -189,12 +190,12 @@ class MockApiService {
 
   // --- API METHODS ---
 
-Future<MockApiResponse> login(dynamic request) async {
+  Future<MockApiResponse> login(dynamic request) async {
     await Future.delayed(const Duration(seconds: 1)); // Simulate network delay
 
     try {
-      final String email = request['email'].toString().toLowerCase().trim();
-      final String password = request['password'].toString();
+      final String email = request.email.toLowerCase().trim();
+      final String password = request.password;
 
       final userJson = _mockUsers.firstWhere(
         (u) => u['email'] == email && u['password'] == password,
@@ -226,14 +227,52 @@ Future<MockApiResponse> login(dynamic request) async {
 
   Future<MockApiResponse> signup(dynamic request) async {
     await Future.delayed(const Duration(seconds: 1));
-    return MockApiResponse(
-      success: true,
-      data: User(id: DateTime.now().millisecondsSinceEpoch, name: 'New User', email: 'test@example.com'),
-      message: 'Signup successful',
-    );
+
+    try {
+      final String name = request.name.toString().trim();
+      final String email = request.email.toString().toLowerCase().trim();
+      final String password = request.password.toString();
+
+      // Check if email already exists
+      final exists = _mockUsers.any((u) => u['email'] == email);
+      if (exists) {
+        return MockApiResponse(
+          success: false,
+          message: 'This email is already registered. Please login instead.',
+        );
+      }
+
+      final newUserMap = {
+        'id': DateTime.now().millisecondsSinceEpoch,
+        'name': name,
+        'email': email,
+        'password': password,
+        'phone': null,
+      };
+      _mockUsers.add(newUserMap);
+
+      final newUser = User(
+        id: newUserMap['id'] as int,
+        name: name,
+        email: email,
+        phone: null,
+      );
+      _currentUser = newUser;
+
+      return MockApiResponse(
+        success: true,
+        data: newUser,
+        message: 'Signup successful',
+      );
+    } catch (e) {
+      return MockApiResponse(
+        success: false,
+        message: 'Signup failed. Please try again.',
+      );
+    }
   }
 
-Future<MockApiResponse> getJobCategories() async {
+  Future<MockApiResponse> getJobCategories() async {
     return MockApiResponse(
       success: true,
       data: [
@@ -253,17 +292,22 @@ Future<MockApiResponse> getJobCategories() async {
   }
 
   // getJobs: Now wraps the List<Job> inside MockJobPagination!
-Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location, String? sortBy, String? category}) async {
+  Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location, String? sortBy, String? category}) async {
     await Future.delayed(const Duration(milliseconds: 800)); // Simulate network latency
 
     // Start with all raw data so we can access hidden fields like categoryId and timestamp
     List<Map<String, dynamic>> filteredRawJobs = List.from(_mockJobs);
 
-    // 1. Keyword Filter (Search by Title or Company Name)
+    // 1. Keyword Filter (Search by Title, Company Name, City, ...)
     if (keyword != null && keyword.trim().isNotEmpty) {
-      filteredRawJobs = filteredRawJobs.where((j) => 
-        j['title'].toString().toLowerCase().contains(keyword.toLowerCase()) || 
-        j['company']['name'].toString().toLowerCase().contains(keyword.toLowerCase())
+      final q = keyword.toLowerCase();
+      filteredRawJobs = filteredRawJobs.where((j) =>
+      j['title'].toString().toLowerCase().contains(q) ||
+          j['company']['name'].toString().toLowerCase().contains(q) ||
+          j['location']['city'].toString().toLowerCase().contains(q) ||
+          j['level_experience'].toString().toLowerCase().contains(q) ||
+          j['contract_type'].toString().toLowerCase().contains(q) ||
+          (j['skills'] as List).any((s) => s.toString().toLowerCase().contains(q))
       ).toList();
     }
 
@@ -286,10 +330,10 @@ Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location
 
     // 4. Sorting Filter (Using the hidden timestamp)
     if (sortBy != null && sortBy.isNotEmpty) {
-      if (sortBy == 'newest') {
-        filteredRawJobs.sort((a, b) => b['timestamp'].compareTo(a['timestamp'])); // Descending
-      } else if (sortBy == 'oldest') {
-        filteredRawJobs.sort((a, b) => a['timestamp'].compareTo(b['timestamp'])); // Ascending
+      if (sortBy == 'published_at_desc') {
+        filteredRawJobs.sort((a, b) => b['timestamp'].compareTo(a['timestamp']));
+      } else if (sortBy == 'salary_desc') {
+        filteredRawJobs.sort((a, b) => (b['salary']['salary_amount'] as int).compareTo(a['salary']['salary_amount'] as int));
       }
     }
 
@@ -318,7 +362,19 @@ Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location
 
   Future<MockApiResponse> applyForJob(String jobId) async {
     await Future.delayed(const Duration(seconds: 1));
+    if (!_appliedJobIds.contains(jobId)) {
+      _appliedJobIds.add(jobId); // ✅ actually track it
+    }
     return MockApiResponse(success: true, message: 'Application submitted successfully');
+  }
+
+  Future<MockApiResponse> getAppliedJobs() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    final applied = _mockJobs
+        .where((j) => _appliedJobIds.contains(j['id']))
+        .map((j) => Job.fromJson(j))
+        .toList(); // ✅ returns actually applied jobs
+    return MockApiResponse(success: true, data: applied);
   }
 
   Future<MockApiResponse> getCompany(String companyId) async {
@@ -333,7 +389,7 @@ Future<MockApiResponse> getJobs({int page = 1, String? keyword, String? location
     return MockApiResponse(success: true, data: companyJobs.map((json) => Job.fromJson(json)).toList());
   }
 
-Future<MockApiResponse> getUserProfile() async {
+  Future<MockApiResponse> getUserProfile() async {
     await Future.delayed(const Duration(milliseconds: 500));
     
     // If no one is logged in, default to Keyhan so your app doesn't crash on start
@@ -351,8 +407,27 @@ Future<MockApiResponse> getUserProfile() async {
     return MockApiResponse(success: true);
   }
 
-  Future<MockApiResponse> getAppliedJobs() async {
-    await Future.delayed(const Duration(milliseconds: 500));
-    return MockApiResponse(success: true, data: [Job.fromJson(_mockJobs[0])]);
+  Future<MockApiResponse> searchSkills(String query) async {
+    await Future.delayed(const Duration(milliseconds: 400));
+
+    final allSkills = [
+      {'id': 1, 'name': 'Flutter', 'total': 8500},
+      {'id': 2, 'name': 'Dart', 'total': 6200},
+      {'id': 3, 'name': 'Python', 'total': 13001},
+      {'id': 4, 'name': 'Django', 'total': 7400},
+      {'id': 5, 'name': 'Kotlin', 'total': 5300},
+      {'id': 6, 'name': 'Swift', 'total': 4100},
+      {'id': 7, 'name': 'Docker', 'total': 9200},
+      {'id': 8, 'name': 'Kubernetes', 'total': 4800},
+      {'id': 9, 'name': 'Figma', 'total': 6700},
+      {'id': 10, 'name': 'Machine Learning', 'total': 5900},
+    ];
+
+    final results = allSkills
+        .where((s) => s['name'].toString().toLowerCase()
+        .contains(query.toLowerCase()))
+        .toList();
+
+    return MockApiResponse(success: true, data: results);
   }
 }

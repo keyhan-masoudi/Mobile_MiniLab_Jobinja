@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> implements JobListViewContract 
       page: _currentPage + 1,
       keyword: _searchController.text.trim(),
       location: _selectedLocation,
+      category: _selectedCategory,
       sortBy: _sortBy,
     );
     
@@ -97,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> implements JobListViewContract 
       page: 1,
       keyword: _searchController.text.trim(),
       location: _selectedLocation,
+      category: _selectedCategory,
       sortBy: _sortBy,
     );
   }
@@ -470,7 +472,26 @@ class _FilterSheetState extends State<_FilterSheet> {
               ),
             ),
             const SizedBox(height: 20),
-            
+
+            // Category Dropdown
+            const Text('Category', style: TextStyle(fontWeight: FontWeight.w600)),
+            const SizedBox(height: 8),
+            DropdownButtonFormField<String>(
+              value: _category,
+              hint: const Text('Select a category'),
+              items: [
+                const DropdownMenuItem(value: null, child: Text('All Categories')),
+                ...widget.categories.map(
+                      (c) => DropdownMenuItem(value: c['id'], child: Text(c['name'])),
+                ),
+              ],
+              onChanged: (v) => setState(() => _category = v),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              ),
+            ),
+
             // Sorting Dropdown
             const Text('Sort By',
                 style: TextStyle(fontWeight: FontWeight.w600)),
